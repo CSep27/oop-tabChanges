@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/tab.css">
+</head>
+<body>
+
+<div class="wrapper" id="wrapper">
+    <ul class="tab" id="tab-menu">
+        <li class="tab-item active">国际大牌<span>◆</span></li>
+        <li class="tab-item">国妆名牌<span>◆</span></li>
+        <li class="tab-item">清洁用品<span>◆</span></li>
+        <li class="tab-item">男士精品</li>
+    </ul>
+    <div class="products" id="tab-main">
+        <div class="main selected">
+            <a href="###"><img src="imgs/guojidapai.jpg" alt=""/></a>
+        </div>
+        <div class="main">
+            <a href="###"><img src="imgs/guozhuangmingpin.jpg" alt=""/></a>
+        </div>
+        <div class="main">
+            <a href="###"><img src="imgs/qingjieyongpin.jpg" alt=""/></a>
+        </div>
+        <div class="main">
+            <a href="###"><img src="imgs/nanshijingpin.jpg" alt=""/></a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    /*原生方法*/
+
+    // 获取dom元素
+    var tabMenu = document.getElementById("tab-menu");
+    var tabItems = tabMenu.children;
+    var tabMain = document.getElementById("tab-main");
+    var mains = tabMain.children;
+
+    // 给所有tab栏菜单绑定事件
+    for (var i = 0; i < tabItems.length; i++) {
+        var tabItem = tabItems[i];
+        tabItem.index = i;
+        tabItem.onclick = function () {
+            change(this.index);
+        }
+    }
+
+    // 实现tab栏切换的代码，排他思想
+    function change(index) {
+        for (var j = 0; j < tabItems.length; j++) {
+            tabItems[j].className = "tab-item";
+            mains[j].style.display = "none";
+        }
+        tabItems[index].className += " active";
+        mains[index].style.display = "block";
+    }
+
+    // 自动播放
+    // 自动播放即每隔一定时间tab栏切换一次
+    // tab栏切换在于index的改变，即当前元素的索引
+    function autoPlay() {
+        var index = -1;
+        setInterval(function () {
+            index++;
+            if (index >= tabItems.length) {
+                index = 0;
+            }
+            change(index);
+        }, 1000);
+    }
+
+    autoPlay();
+
+</script>
+</body>
+</html>

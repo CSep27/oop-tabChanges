@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/tab.css">
+</head>
+<body>
+
+<div class="wrapper" id="wrapper">
+    <ul class="tab" id="tab-menu">
+        <li class="tab-item active">国际大牌<span>◆</span></li>
+        <li class="tab-item">国妆名牌<span>◆</span></li>
+        <li class="tab-item">清洁用品<span>◆</span></li>
+        <li class="tab-item">男士精品</li>
+    </ul>
+    <div class="products" id="tab-main">
+        <div class="main selected">
+            <a href="###"><img src="imgs/guojidapai.jpg" alt=""/></a>
+        </div>
+        <div class="main">
+            <a href="###"><img src="imgs/guozhuangmingpin.jpg" alt=""/></a>
+        </div>
+        <div class="main">
+            <a href="###"><img src="imgs/qingjieyongpin.jpg" alt=""/></a>
+        </div>
+        <div class="main">
+            <a href="###"><img src="imgs/nanshijingpin.jpg" alt=""/></a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    /*面向对象*/
+    function Tab(config) {
+        // 初始化函数，将所有初始化操作统一放到这个函数中管理
+        // 调用构造函数创建新对象时，初始化函数就会执行
+        this._init(config);
+    }
+
+    Tab.prototype = {
+        constructor:Tab,
+        _init:function (config) {
+            // 初始化元素 都作为this对象的属性存在，这样在this对象的方法中就能够调用了
+            this.tabItems = document.getElementById(config.tabMenuId).children;
+            this.mains = document.getElementById(config.tabMainId).children;
+            this.auto = config.auto;
+
+            // 初始化事件
+            // 给所有tab栏菜单绑定事件
+            var tabItems = this.tabItems,
+                    len = tabItems.length,
+                    self = this;
+            for (var i = 0; i < len; i++) {
+                var tabItem = tabItems[i];
+                tabItem.index = i;
+                tabItem.onclick = function () {
+                    // 注意这里使用this调用change方法时，要用变量保存函数外的this以在函数内使用
+                    self.change(this.index);
+                }
+            }
+
+            if(this.auto === "true"){
+                this.autoPlay();
+            }
+
+        },
+        change:function (index) {
+            var tabItems = this.tabItems,
+                    mains = this.mains,
+                    len = tabItems.length;
+            for (var j = 0; j < len; j++) {
+                tabItems[j].className = "tab-item";
+                mains[j].style.display = "none";
+            }
+            tabItems[index].className += " active";
+            mains[index].style.display = "block";
+        },
+        autoPlay:function () {
+            var index = -1,
+                    len = this.tabItems.length,
+                    self = this;
+            setInterval(function () {
+                index++;
+                if (index >= len) {
+                    index = 0;
+                }
+                self.change(index);
+            }, 1000);
+        }
+    }
+
+    // 如何调用
+    // 1 传入tab菜单栏父盒子id
+    // 2 传入内容父盒子id
+    // 3 传入是否自动播放
+    var tab = new Tab({
+        tabMenuId: "tab-menu", // tab栏大盒子的id
+        tabMainId: "tab-main",// 内容大盒子的id
+        auto: "true" // 是否自动播放
+    })
+
+</script>
+</body>
+</html>

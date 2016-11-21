@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/tab.css">
+</head>
+<body>
+
+<div class="wrapper" id="wrapper">
+    <ul class="tab" id="tab-menu">
+        <li class="tab-item active">国际大牌<span>◆</span></li>
+        <li class="tab-item">国妆名牌<span>◆</span></li>
+        <li class="tab-item">清洁用品<span>◆</span></li>
+        <li class="tab-item">男士精品</li>
+    </ul>
+    <div class="products" id="tab-main">
+        <div class="main selected">
+            <a href="###"><img src="imgs/guojidapai.jpg" alt=""/></a>
+        </div>
+        <div class="main">
+            <a href="###"><img src="imgs/guozhuangmingpin.jpg" alt=""/></a>
+        </div>
+        <div class="main">
+            <a href="###"><img src="imgs/qingjieyongpin.jpg" alt=""/></a>
+        </div>
+        <div class="main">
+            <a href="###"><img src="imgs/nanshijingpin.jpg" alt=""/></a>
+        </div>
+    </div>
+</div>
+
+<!-- 封装到一个单独的js文件中去，哪个页面需要使用就可以直接引入 -->
+<script src="js/tab.js"></script>
+<script type="text/javascript">
+    // 如何调用
+    // 1 传入tab菜单栏父盒子id
+    // 2 传入内容父盒子id
+    // 3 传入是否自动播放
+    var tab = new Tab({
+        tabMenuId: "tab-menu", // tab栏大盒子的id
+        tabMainId: "tab-main",// 内容大盒子的id
+        auto: "true" ,// 是否自动播放
+        time:1000 // 播放间隔时间
+    })
+
+</script>
+</body>
+</html>
